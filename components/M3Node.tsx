@@ -248,6 +248,7 @@ export function ButtonContent({ item }: { item: Item }) {
    * with no label the icon is centred instead, which makes the button a circle */
   const m = buttonMetrics(buttonHeightOf(item));
   const padX = hasLabel ? m.padX : Math.round((m.h - m.icon) / 2);
+  /* tOS OSBigButton: pill, label-semibold 15/550 (tiny caption1-semibold 12/550) */
   return (
     <span
       className="m3-size-ease"
@@ -262,8 +263,8 @@ export function ButtonContent({ item }: { item: Item }) {
         paddingRight: padX,
         height: m.h,
         fontSize: m.font,
-        fontWeight: w(500, 700),
-        letterSpacing: 0.1,
+        fontWeight: w(550, 700),
+        letterSpacing: 0,
         whiteSpace: "nowrap",
       }}
     >
@@ -339,38 +340,33 @@ function SwitchContent({ item, p }: { item: Item; p: Palette }) {
 
 /** the M3 switch track and handle, 52 × 32 */
 function SwitchControl({ on, p }: { on: boolean; p: Palette }) {
+  /* tOS OSLiquidSwitch: track 44×24, thumb 18 (3px inset top/left), pill; off track = gray fill, no check icon */
   return (
     <span
         style={{
           position: "relative",
-          width: 52,
-          height: 32,
-          borderRadius: 16,
+          width: 44,
+          height: 24,
+          borderRadius: 12,
           background: on ? p.primary : p.surfaceContainerHighest,
-          border: on ? "2px solid transparent" : `2px solid ${p.outline}`,
           boxSizing: "border-box",
           flex: "0 0 auto",
-          transition: "background 160ms",
+          transition: "background 200ms cubic-bezier(0.2,0,0,1)",
         }}
       >
         <span
           style={{
             position: "absolute",
-            top: "50%",
-            left: on ? 22 : 4,
-            width: on ? 24 : 16,
-            height: on ? 24 : 16,
-            marginTop: on ? -12 : -8,
-            borderRadius: 12,
-            background: on ? p.onPrimary : p.outline,
-            display: "grid",
-            placeItems: "center",
-            color: p.onPrimaryContainer,
-            transition: "left 160ms, width 160ms, height 160ms",
+            top: 3,
+            left: on ? 23 : 3,
+            width: 18,
+            height: 18,
+            borderRadius: 9,
+            background: "#FFFFFF",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.15)",
+            transition: "left 200ms cubic-bezier(0.2,0,0,1)",
           }}
-        >
-          {on && <Icon name="check" size={16} weight={600} />}
-        </span>
+        />
       </span>
   );
 }
@@ -1047,6 +1043,7 @@ function Body({ item, p, tabScroll, menuShown }: { item: Item; p: Palette; tabSc
     }
 
     case "listItem": {
+      /* tOS OSListItem: left/right pad 16, gap 16, icon 24 in 40 rounded slot, title 16/465, supporting 14 secondary */
       const iconBg = item.iconFill === "none" ? null : (item.iconFill ?? "primaryContainer");
       return (
         <div style={{ display: "flex", alignItems: "center", gap: 16, padding: "0 16px", height: "100%" }}>
@@ -1063,16 +1060,16 @@ function Body({ item, p, tabScroll, menuShown }: { item: Item; p: Palette; tabSc
                 flex: "0 0 auto",
               }}
             >
-              <Icon name={item.icon} size={22} />
+              <Icon name={item.icon} size={24} />
             </div>
           )}
           <div style={{ flex: 1, minWidth: 0 }}>
-            {hasLabel && <div style={{ fontSize: 16, color: p.onSurface, ...ellipsis }}>{item.label}</div>}
+            {hasLabel && <div style={{ fontSize: 16, fontWeight: 465, color: p.onSurface, ...ellipsis }}>{item.label}</div>}
             {hasSupporting && (
-              <div style={{ fontSize: 13, color: p.onSurfaceVariant, ...ellipsis }}>{item.supporting}</div>
+              <div style={{ fontSize: 14, color: p.onSurfaceVariant, ...ellipsis }}>{item.supporting}</div>
             )}
           </div>
-          {item.switch ? <SwitchControl on={!!item.checked} p={p} /> : item.icon2 && <Icon name={item.icon2} size={22} color={p.onSurfaceVariant} />}
+          {item.switch ? <SwitchControl on={!!item.checked} p={p} /> : item.icon2 && <Icon name={item.icon2} size={24} color={p.onSurfaceVariant} />}
         </div>
       );
     }
@@ -1097,10 +1094,10 @@ function Body({ item, p, tabScroll, menuShown }: { item: Item; p: Palette; tabSc
           {hasLabel && (
             <div
               style={{
-                fontSize: 24,
-                fontWeight: w(400, 600),
+                fontSize: 18,
+                fontWeight: w(550, 600),
                 color: p.onSurface,
-                textAlign: item.icon ? "center" : "left",
+                textAlign: "center",
                 ...ellipsis,
               }}
             >
@@ -1108,25 +1105,32 @@ function Body({ item, p, tabScroll, menuShown }: { item: Item; p: Palette; tabSc
             </div>
           )}
           {hasSupporting && (
-            <div style={{ fontSize: 14, lineHeight: 1.5, color: p.onSurfaceVariant, flex: 1, overflow: "hidden" }}>
+            <div style={{ fontSize: 14, lineHeight: 1.5, color: p.onSurfaceVariant, flex: 1, overflow: "hidden", textAlign: "center" }}>
               {item.supporting}
             </div>
           )}
-          <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
-            {[t("cancel", lang), t("ok", lang)].map((t) => (
+          {/* tOS OSPromptDialog button row: pill buttons h44, gap12; cancel=gray fill, confirm=brand fill */}
+          <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
+            {[
+              { label: t("cancel", lang), brand: false },
+              { label: t("ok", lang), brand: true },
+            ].map((btn) => (
               <span
-                key={t}
+                key={btn.label}
                 style={{
-                  padding: "0 12px",
-                  height: 40,
+                  flex: 1,
+                  height: 44,
+                  borderRadius: 22,
                   display: "inline-flex",
                   alignItems: "center",
-                  color: p.primary,
-                  fontSize: 14,
-                  fontWeight: 500,
+                  justifyContent: "center",
+                  background: btn.brand ? p.primary : p.surfaceContainerHighest,
+                  color: btn.brand ? p.onPrimary : p.onSurface,
+                  fontSize: 15,
+                  fontWeight: 550,
                 }}
               >
-                {t}
+                {btn.label}
               </span>
             ))}
           </div>
@@ -1159,44 +1163,41 @@ function Body({ item, p, tabScroll, menuShown }: { item: Item; p: Palette; tabSc
       );
 
     case "textField": {
-      const filled = item.variant === "filled";
+      /* tOS OSMaterialEditText card input: radius 16, border line-default (#DCDDE0), title above, cursor brand-green */
       return (
         <div style={{ position: "relative", height: "100%" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "0 16px", height: "100%" }}>
-            {item.icon && <Icon name={item.icon} size={24} color={p.onSurfaceVariant} />}
-            <span style={{ flex: 1, minWidth: 0, fontSize: 16, color: p.onSurfaceVariant, ...ellipsis }}>
-              {filled ? "" : ""}
-            </span>
-          </div>
           {hasLabel && (
             <span
               style={{
                 position: "absolute",
-                left: item.icon ? 52 : 16,
-                top: filled ? 8 : -8,
-                fontSize: 12,
-                lineHeight: "16px",
-                color: p.primary,
-                background: filled ? "transparent" : p.surface,
-                padding: filled ? 0 : "0 4px",
-                marginLeft: filled ? 0 : -4,
+                left: 0,
+                top: -22,
+                fontSize: 14,
+                lineHeight: "20px",
+                color: p.onSurface,
               }}
             >
               {item.label}
             </span>
           )}
-          {filled && (
-            <span
-              style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: 2,
-                background: p.primary,
-              }}
-            />
-          )}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              padding: "0 16px",
+              height: "100%",
+              boxSizing: "border-box",
+              borderRadius: 16,
+              border: `1px solid ${p.outlineVariant}`,
+              background: p.surface,
+            }}
+          >
+            {item.icon && <Icon name={item.icon} size={24} color={p.onSurfaceVariant} />}
+            <span style={{ display: "inline-block", width: 2, height: 20, background: "#00C763", flex: "0 0 auto" }} />
+            <span style={{ flex: 1, minWidth: 0, fontSize: 16, color: p.onSurfaceVariant, ...ellipsis }} />
+            {item.icon2 && <Icon name={item.icon2} size={20} color={p.onSurfaceVariant} />}
+          </div>
           {hasSupporting && (
             <span
               style={{
