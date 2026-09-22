@@ -371,7 +371,7 @@ describe("bottom sheet", () => {
     const words = {
       ja: ["ボトムシート（上部にドラッグハンドル", "上の角丸 16dp", "ModalBottomSheet"],
       en: ["bottom sheet with a drag handle at the top", "16dp top corners", "modal bottom sheets"],
-      zh: ["底部面板（顶部带拖动条", "上方圆角 16dp", "ModalBottomSheet"],
+      zh: ["底部面板（顶部带拖动条", "上方圆角 16dp", "OSBottomSheetPanelCompose"],
       ko: ["하단 시트(위쪽 드래그 핸들 포함", "위 모서리 16dp", "ModalBottomSheet"],
     }[lang];
     for (const w of words) expect(prompt).toContain(w);

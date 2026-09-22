@@ -1124,9 +1124,10 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "アイコンボタン",
     category: "actions",
     paletteIcon: "radio_button_checked",
-    w: 48,
-    h: 48,
-    radius: 24,
+    /* tOS OSBigButton(icon): 44x44 outer plate, 24dp icon. */
+    w: 44,
+    h: 44,
+    radius: 22,
     hasVariant: true,
     hasLabel: false,
     hasSupporting: false,
@@ -1144,9 +1145,10 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "FAB（フローティングボタン）",
     category: "actions",
     paletteIcon: "add_circle",
+    /* tOS OSLiquidFob: a circular floating button. */
     w: 56,
     h: 56,
-    radius: 16,
+    radius: 28,
     hasVariant: true,
     hasLabel: false,
     hasSupporting: false,
@@ -1179,6 +1181,7 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "チップ",
     category: "actions",
     paletteIcon: "label",
+    /* tOS 标签: height 32, radius-xs 8. */
     w: 0,
     h: 32,
     radius: 8,
@@ -1274,9 +1277,10 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "カード",
     category: "containment",
     paletteIcon: "web_asset",
+    /* tOS list-card: radius-m 16, container color layer #FFFFFF. */
     w: CONTENT_W,
     h: 223,
-    radius: 20,
+    radius: 16,
     hasVariant: true,
     hasLabel: true,
     hasSupporting: true,
@@ -1295,8 +1299,9 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "リスト項目",
     category: "containment",
     paletteIcon: "list",
+    /* tOS OSListItem: row height 52, side padding 16, title 16/465, body 16/400. */
     w: CONTENT_W,
-    h: 72,
+    h: 52,
     radius: R_FULL,
     hasVariant: false,
     hasLabel: true,
@@ -1316,7 +1321,8 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "ダイアログ",
     category: "containment",
     paletteIcon: "chat_bubble",
-    w: 312,
+    /* tOS OSPromptDialog: width 328, radius-xxl 28, side padding 24, button row 44 high. */
+    w: 328,
     h: 220,
     radius: 28,
     hasVariant: false,
@@ -1332,9 +1338,10 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "スナックバー",
     category: "containment",
     paletteIcon: "call_to_action",
+    /* tOS OSSnackbar: radius 14, background 90% #48494D. */
     w: 344,
     h: 48,
-    radius: 8,
+    radius: 14,
     hasVariant: false,
     hasLabel: true,
     hasSupporting: true,
@@ -2699,8 +2706,9 @@ export function baseRadii(it: Item): Radii {
       const r = it.radiusBottom ?? modalRadius;
       return { tl: l, bl: l, tr: r, br: r };
     }
+    /* tOS OSLiquidFob: the floating button is a full circle. */
     case "fab":
-      return uniformRadii(scaleR(Math.round((it.size ?? 56) * 0.28)));
+      return uniformRadii(scaleR(Math.round((it.size ?? 56) * 0.5)));
     case "extendedFab":
       return uniformRadii(scaleR(extendedFabMetrics(extendedFabHeight(it)).radius));
     case "fabMenu":

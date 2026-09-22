@@ -190,7 +190,7 @@ describe("tidyFrame with locked groups", () => {
   });
 
   it("flows the rows around a locked section in the body", () => {
-    const fixed = { ...grp("g-fixed", 16, 200, [part("card", "c0")]), locked: true };
+    const fixed = { ...grp("g-fixed", 16, 90, [part("card", "c0")]), locked: true };
     const above = grp("g-a", 60, 40, [part("listItem", "l1")]);
     const below = grp("g-b", 60, 600, [part("listItem", "l2")]);
     const out = tidyFrame([fixed, above, below], frame, frames, {})!;

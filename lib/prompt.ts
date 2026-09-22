@@ -1193,54 +1193,54 @@ const STYLE_NOTES: Record<Lang, Partial<Record<Kind, string>>> = {
   zh: {
     button:
       "按钮（tOS OSBigButton）：默认 Middle 尺寸，宽 150dp、高 48dp，胶囊圆角；Big 为 296×48dp，Tiny 为 72-84×32dp。填充用 brand（HiOS #0077FF / XOS #00C763），灰色按钮用 fill-weaker，描边按钮用 1dp 的 border-default 边框，警示按钮用 warning-primary（#FF3430）。左右内边距 space-200（16dp），上下 space-150（12dp），文字用 label-semibold（15px/550，Tiny 用 caption1-semibold 12px/550）。禁用态用 brand-disabled。Android 对应 OSBigButton（View）/ OSButton、OSLiquidBigButtonCompose（Compose）；底部按钮区域用 OSLiquidBigButton 布局，勿把布局当单按钮。",
-    iconButton: "图标按钮：默认 56dp 圆形（M3 的 M 尺寸）；指定了尺寸的按 M3 尺寸（XS 32dp / S 40dp / M 56dp / L 96dp / XL 136dp）实现，图标也取该尺寸。按指定使用填充／色调／描边／标准样式。相连的图标按钮组实现为 Connected button group。",
+    iconButton: "图标按钮（tOS OSBigButton(icon)）：外板 44×44dp，图标 24dp、用 text-icon-primary。填充用 brand（HiOS #0077FF / XOS #00C763），色调用 fill-weaker，描边用 1dp 的 border-default（#DCDDE0）边框，标准样式为透明底。禁用态用 brand-disabled / text-icon-disable（#B9BBBF）。相连的图标按钮组以 3dp 间距排列，外侧圆角、相邻内侧圆角 8dp。",
     carousel:
-      "轮播：M3 的 Carousel（Compose 为 HorizontalMultiBrowseCarousel / HorizontalUncontainedCarousel，Web 为横向滚动的卡片行）。卡片为圆角 16dp 的容器；多浏览与主图布局中首张卡片最大、越靠后越小，等宽滚动中每张卡片同宽，全屏布局中一张卡片占满整行。贴近屏幕左右边缘，起始留白 16dp，卡片间距 8dp。卡片标题放在卡片底部。",
+      "轮播（tOS 卡片行）：卡片为圆角 16dp（radius-m）的 list-card，容器色用 layer（#FFFFFF）。多浏览与主图布局中首张卡片最大、越靠后越小，等宽滚动中每张卡片同宽，全屏布局中一张卡片占满整行。贴近屏幕左右边缘，起始留白 space-200（16dp），卡片间距 space-100（8dp）。卡片标题放在卡片底部、用 title（16px/500）。",
     datePicker:
-      "日期选择器：M3 的 DatePicker。模态形式是圆角 28dp 的对话框，含标题、月份切换、星期行、日期网格与取消／确定；停靠形式是挂在输入框下方的同一日历；仅输入框形式是末尾带日历图标的描边文本框。选中日期用 primary 圆形标出。",
+      "日期选择器（tOS DateTimeDialog / OSDateTimePickerDialog）：模态形式为宽 328dp、圆角 28dp（radius-xxl）的弹窗，含标题、月份切换、星期行、日期网格与取消／确定，日期弹窗高约 334dp；停靠形式是挂在输入框下方的同一日历；仅输入框形式是末尾带日历图标的描边输入框。选中日期用 brand 圆形标出，背景用 layer（#FFFFFF）。",
     timePicker:
-      "时间选择器：M3 的 TimePicker。小时与分钟是两块大数字面板（选中的用 primaryContainer，另一块用 surfaceContainerHighest），旁边是竖向的 AM/PM 切换。表盘是 surfaceContainerHighest 的圆形加 primary 指针；输入框形式直接输入数字。底部有取消／确定以及切换表盘／键盘的图标。",
-    fab: "FAB：常规 56dp、圆角 16dp；大尺寸 96dp、圆角 28dp；小尺寸 40dp、圆角 12dp。色调用 primaryContainer，填充用 primary。距屏幕边缘 16dp 悬浮，阴影为 Level 3。",
-    extendedFab: "扩展 FAB：高 56dp（M3 的三种尺寸为 56 / 80 / 96dp，圆角与文字随之变化），圆角 16dp，左侧图标、右侧标签。",
+      "时间选择器（tOS DateTimeDialog / OSDateTimePickerDialog）：宽 328dp、圆角 28dp 的弹窗。小时与分钟为两块大数字面板（选中的用 brand 底、text-icon 反白，另一块用 fill-weaker / bg-secondary #F5F6F7），旁边是竖向的 AM/PM 切换。表盘为 bg-secondary 圆形加 brand 指针；输入框形式直接输入数字。底部放取消／确定及切换表盘／键盘的图标。",
+    fab: "悬浮按钮（tOS FloatingButton / OSLiquidFob，即 OSLiquidSpringFloatingOvalButton）：常规 56dp 圆形；大尺寸 96dp、小尺寸 40dp，均为整圆。填充用 brand（HiOS #0077FF / XOS #00C763）、图标用反白 text-icon；色调样式用 fill-weaker 底 + brand 图标。距屏幕边缘 space-200（16dp）悬浮，带轻投影。",
+    extendedFab: "拓展悬浮按钮（tOS OSLiquidBigButton）：高 48dp，胶囊圆角，左侧图标、右侧标签。填充用 brand，文字用 label-semibold（15px/550）反白；色调样式用 fill-weaker 底 + brand 文字。距屏幕边缘 16dp 悬浮。",
     chip:
-      "标签片：默认高 32dp，圆角 8dp。指定了高度的标签片遵循 M3 尺寸（XS 32dp / S 40dp / M 56dp）：左右内边距、文字和图标取该尺寸的值。选中状态用 secondaryContainer 填充并在前面显示勾选图标。横向相连的标签片组以 3dp 间距排列，只把相邻的内侧圆角缩小到 4dp，外侧保持圆角，并共享同一高度；溢出时横向滚动。",
+      "标签（tOS 标签 / OSBigButton(tiny)）：默认高 32dp，圆角 8dp（radius-xs）。文字用 caption1-semibold（12px/550），左右内边距 space-150（12dp）。未选中用 fill-weaker 底 + text-icon-secondary（#48494D）；选中用 brand（HiOS #0077FF / XOS #00C763）淡底或 brand 描边，并在前面显示勾选图标。横向相连的标签组以 3dp 间距排列，相邻内侧圆角缩到 4dp，外侧保持圆角，共享同一高度；溢出时横向滚动。",
     topAppBar:
       "标题栏（tOS TitleBar / OSLiquidToolBar）：内容高 56dp，背景延伸到状态栏后面并按系统内边距在顶部留白。默认背景为 layer（浅色 #FFFFFF / 深色 #18181A），标题用 title（16px/500）居中或左对齐，左右图标按钮 44×44dp、图标 24dp、用 text-icon-primary。滚动时可切换材质标题栏（浏览器材质：70% 白底 + 20% 白玻璃 + 4px 背景模糊 + 双向渐变环描边）。大标题栏（LargeTitleBar）标题独占底部一行、用 hero（32px/550）或 h1（26px/550），滚动收缩为小标题栏。Android 对应 OSLiquidToolBar / OSLiquidWidgetToolBar（View）、OSLiqToolBarCompose / OSComposeAppBarNestedScroll（Compose）。",
     bottomNav:
-      "导航栏：高 80dp，背景为 surfaceContainer。背景延伸到屏幕底部的手势导航区域，并按系统内边距在底部留出空间。选中项用 secondaryContainer 的胶囊指示器（宽 64dp、高 32dp）表示，图标为填充样式，标签用 labelMedium。",
+      "底部导航（tOS TabBar / OSLiquidFootOperationBar）：移动端 360×100dp，条高 60dp，item 宽 52dp，图标 24dp，动作区 60dp。背景用 layer（浅色 #FFFFFF / 深色 #18181A），延伸到屏幕底部手势区并按系统内边距留白。选中项图标/文字用 brand（HiOS #0077FF / XOS #00C763），未选用 text-icon-tertiary（#545559），标签用 caption1（12px）。",
     navRail:
-      "侧边导航栏：宽 80dp，贴着屏幕左缘通高，背景为 surfaceContainer。项目从上往下排列，选中项用 secondaryContainer 的胶囊指示器（宽 56dp、高 32dp）表示，图标为填充样式，下方为 labelMedium 标签。内容放在导航栏右侧。",
-    searchBar: "搜索栏：高 56dp，完全圆角，背景为 surfaceContainerHigh（描边样式为 surface 背景加 outline 边框）。左侧显示搜索图标，右侧显示指定图标。",
-    card: "卡片：圆角 20dp。图片区域按每张卡片的描述放在顶部、底部、左侧、右侧或作为整卡背景（背景时从文字一侧加渐变遮罩：浅色文字用黑色，深色文字用白色）。图片保持宽高比并居中裁剪以填满区域。填充用 surfaceContainerHighest，浮起用 surfaceContainerLow 加 Level 1 阴影，描边用 1dp 的 outlineVariant 边框。标题用 titleMedium，正文用 bodyMedium。内边距 20dp，标题与正文间距 4dp，图片与文字间距 12dp。",
+      "侧边导航：宽 80dp，贴着屏幕左缘通高，背景用 layer（浅色 #FFFFFF / 深色 #18181A）。项目从上往下排列，选中项图标/文字用 brand（HiOS #0077FF / XOS #00C763），未选用 text-icon-tertiary（#545559），下方为 caption1 标签。内容放在导航栏右侧。",
+    searchBar: "搜索框（tOS SearchBar / OSSearchBarCompose）：页面搜索 360×56dp，输入区 328×40dp、圆角随容器（radius-l 20）；底部搜索栏（OSLiquidSearchBarCompose）360×104dp、输入高 48dp、图标 20dp。背景用 fill-weaker / bg-secondary（#F5F6F7），描边样式用 layer #FFFFFF 底加 border-default（#DCDDE0）边框。左侧搜索图标用 text-icon-info（#939599），右侧显示指定图标。",
+    card: "卡片（tOS list-card）：圆角 16dp（radius-m），容器色用 layer（#FFFFFF）。图片区域按每张卡片的描述放在顶部、底部、左侧、右侧或作为整卡背景（背景时从文字一侧加渐变遮罩：浅色文字用黑色，深色文字用白色）。图片保持宽高比并居中裁剪。描边样式用 1dp 的 stroke-weak（#E9EAEB）边框。标题用 title（16px/500）/ text-icon-primary（#000000），正文用 body1（16px/400）/ text-icon-secondary（#48494D）。内边距 space-200（16dp），标题与正文间距 4dp，图片与文字间距 space-150（12dp）。",
     listItem:
-      "列表项：高 72dp，左侧图标 24dp（未指定时放在 40dp 的 primaryContainer 圆形上），主文本用 bodyLarge，辅助文本用 bodyMedium 的 onSurfaceVariant，背景为指定的颜色角色（未指定则为 surfaceContainerLow）。上下相连的列表以 3dp 间距排列，外侧圆角 28dp，相邻内侧圆角 8dp（M3 Expressive 的列表样式）。",
-    dialog: "对话框：宽 312dp，圆角 28dp，背景为 surfaceContainerHigh。标题用 headlineSmall，正文用 bodyMedium，底部右对齐放文字按钮。",
-    snackbar: "消息条：高 48dp，圆角 8dp，背景为 inverseSurface，文字为 inverseOnSurface。操作为 inversePrimary 的文字按钮。显示在距屏幕底部 16dp 处，数秒后消失。",
+      "列表项（tOS ListItem / OSListItem）：行高 52dp，左右 padding 16dp，行内 padding 12/16dp。左侧图标 24dp、用 text-icon-primary（未指定时放在 40dp 的 fill-weaker 圆形上），标题用 title（16px/465）/ text-icon-primary（#000000），辅助文本用 body1（16px/400）/ text-icon-secondary（#48494D），背景用 layer（#FFFFFF）或指定颜色。上下相连的列表以 3dp 间距排列，外侧圆角 20dp，相邻内侧圆角 8dp。分割线用 stroke-weak（#E9EAEB）。",
+    dialog: "弹窗（tOS Dialog / OSPromptDialog）：宽 328dp，圆角 28dp（radius-xxl），背景用 layer（#FFFFFF），横向 padding 24dp、内容宽 280dp，顶部 padding 24dp，段间距 16dp。标题用 h3 / text-icon-primary（#000000），正文用 body1（16px/400）/ text-icon-secondary（#48494D）。底部按钮行 319×76dp，按钮高 44dp、间距 12dp；主按钮填 brand（HiOS #0077FF / XOS #00C763），次按钮用 fill-weaker 底。警示操作用 warning-primary（#FF3430）。遮罩 #00000033。",
+    snackbar: "消息提示（tOS Snackbar / OSSnackbar）：高约 48dp，圆角 14dp，背景为 90% 不透明的 text-icon-secondary（#48494D），文字用白色。操作用 brand（HiOS #0077FF / XOS #00C763）的文字按钮。显示在距屏幕底部 16dp 处，数秒后消失。",
     textField:
-      "文本输入框：高 56dp。描边样式圆角 16dp、边框为 outline；填充样式背景为 surfaceContainerHighest 并带下划线。聚焦时标签上浮，边框变为 2dp 的 primary。辅助文本用 bodySmall 显示在下方。",
+      "输入框（tOS TextInput / OSMaterialEditTextCompose）：卡片输入 328×60dp、圆角 16dp（radius-m）；通栏式 360×39dp；多行 296×100dp。背景用 fill-weaker / bg-secondary（#F5F6F7）或 layer #FFFFFF。下划线/边框默认用 line-default（#DCDDE0），聚焦变 text-icon-info（#939599），错误用 warning-primary（#FF3430）；光标用 brand-green（#00C763）。标签/占位用 text-icon-info（#939599），输入文字用 text-icon-primary（#000000）。辅助文本显示在下方。",
     select:
-      "下拉菜单：外观与文本输入框相同（高 56dp，描边或填充），末尾带 arrow_drop_down 图标。按 exposed dropdown menu 实现：点击后在下方展开菜单（surfaceContainer，圆角 4dp，项高 48dp），所选值显示在输入框中。",
+      "下拉/选择（tOS Select / OSSelectImageView）：外观沿用输入框风格（背景 fill-weaker / bg-secondary #F5F6F7，圆角 16dp），末尾带下拉箭头图标（text-icon-tertiary #545559）。点击后在下方展开菜单（底 layer #FFFFFF，圆角 12dp，项高 48dp），选中项用 brand 高亮，所选值显示在输入框中。",
     switch: "开关（tOS OSLiquidSwitch）：轨道 44×24dp，滑块 18dp（上下留 3dp）。开启轨道用 brand（HiOS #0077FF / XOS #00C763）、滑块纯白；关闭轨道用 comp-color-switch-off（#C6C8CC），滑块纯白；禁用用 comp-color-switch-disabled。标签在左（用 body1-regular），开关靠右。Android 对应 OSLiquidSwitchCompose。",
-    checkbox: "复选框：18dp 方形，圆角 2dp，勾选时为 primary。标签在右侧，用 bodyLarge。",
-    slider: "滑块：M3 Expressive 的粗轨道（高 16dp）和竖长手柄（宽 4dp、高 44dp）。手柄左侧为 primary，右侧为 secondaryContainer。可拖动改变数值。",
-    text: "文本：指定的 sp 字号。标题用 onSurface，说明文字用 onSurfaceVariant，行高为字号的 1.3〜1.5 倍。点击时不加涟漪等反馈。",
-    image: "图片：圆角 20dp，未指定时使用 surfaceContainerHighest 的占位符。保持宽高比并居中裁剪。",
-    camera: "相机预览：圆角 20dp。在此区域显示设备相机画面；未获得权限时，在 inverseSurface 的深色面板上显示相机图标。",
-    map: "地图：圆角 20dp。在此区域放置地图 SDK 视图；加载期间在 surfaceContainerHighest 上显示地图图标。",
-    divider: "分割线：1dp 的 outlineVariant，左右留 16dp 边距。",
-    box: "容器框：只是带指定背景色和圆角的容器，作为叠放在其上的组件的背景，本身没有任何行为。",
-    bottomSheet: "底部面板：做成从底部滑出的模态底部面板（ModalBottomSheet），顶部居中放拖动条，使用指定的背景色和上方圆角，下方保持直角。",
-    loadingIndicator: "加载指示：使用 M3 Expressive 形状变化的 LoadingIndicator（旋转并在多边形之间变形）。带容器的放在 secondaryContainer 的圆形中。",
-    linearProgress: "线性进度条：使用指定的轨道粗细（未指定则为 4dp）和圆形端帽。指定波浪形时使用 M3 Expressive 的 wavy 样式。轨道为 secondaryContainer，进度为 primary。",
-    circularProgress: "圆形进度条：使用指定的轨道粗细（未指定则为 4dp）和圆形端帽。指定波浪形时使用 M3 Expressive 的 wavy 样式。",
+    checkbox: "多选（tOS Checkbox / OSCheckBox）：盒 18dp 方形，圆角 4dp。未选用 border-default（#DCDDE0）描边，选中时填 brand（HiOS #0077FF / XOS #00C763）、勾白色。禁用用 brand-disabled / text-icon-disable（#B9BBBF）。标签在右侧，用 body1（16px/400）/ text-icon-primary。",
+    slider: "滑块（tOS Slider / OSSeekbar）：宽 296dp，轨道高 10dp、圆角 12dp，滑块 22dp（内圈 16dp），端点 4dp（选中 7dp）。已选轨道用 brand（HiOS #0077FF / XOS #00C763），未选轨道用 fill-weaker / bg-primary（#F0F1F2），滑块白底加 brand 内点。可拖动改变数值。",
+    text: "文本：按 tOS 字号层级（hero 32/550、h1 26/550、h2/h3；body1 16/400、title 16/500、caption 12）。标题用 text-icon-primary（#000000），说明文字用 text-icon-secondary（#48494D）或 text-icon-tertiary（#545559），行高为字号的 1.3〜1.5 倍。点击时不加涟漪等反馈。",
+    image: "图片：圆角 16dp（radius-m），未指定时使用 fill-weaker / bg-secondary（#F5F6F7）的占位符。保持宽高比并居中裁剪。",
+    camera: "相机预览：圆角 16dp。在此区域显示设备相机画面；未获得权限时，在深色面板（bg #000000 / #18181A）上显示相机图标。",
+    map: "地图：圆角 16dp。在此区域放置地图 SDK 视图；加载期间在 fill-weaker / bg-secondary（#F5F6F7）上显示地图图标。",
+    divider: "分割线：1dp，色用 stroke-weak（#E9EAEB），左右留 space-200（16dp）边距。",
+    box: "容器框：只是带指定背景色和圆角的容器（容器色对齐 tOS layer：浅色 #FFFFFF / bg-primary #F0F1F2 / bg-secondary #F5F6F7），作为叠放在其上的组件的背景，本身没有任何行为。",
+    bottomSheet: "底部面板（tOS Panel / OSBottomSheetPanelCompose）：宽 360dp，顶部圆角 28dp，从底部滑出的模态面板，顶部居中放拖动条（圆角 2.5dp）。背景用 layer（#FFFFFF），下方保持直角。标题区高 56dp，list-card 圆角 16dp，底部按钮区高 112dp、大按钮 296×48dp填 brand（HiOS #0077FF / XOS #00C763）。",
+    loadingIndicator: "加载（tOS Loading / OSLoadingView）：图标 16/24/36dp，点 3/5/8dp，色用 brand（HiOS #0077FF / XOS #00C763）。带容器的放在 fill-weaker 的圆形中。",
+    linearProgress: "线性进度（tOS OSLoadingView）：轨道高 4dp、圆角 2dp（页面顶部进度条高 2dp），圆形端帽。进度用 brand（HiOS #0077FF / XOS #00C763），轨道用 line-default（#DCDDE0）。指定波浪形时用 wavy 样式。",
+    circularProgress: "环形进度（tOS OSLoadingView）：使用指定的轨道粗细（未指定则为 4dp）和圆形端帽，色用 brand（HiOS #0077FF / XOS #00C763），轨道用 line-default（#DCDDE0）。指定波浪形时用 wavy 样式。",
     splitButton:
-      "拆分按钮：M3 Expressive 的 SplitButton。左段为主操作，右侧箭头段打开菜单。两段间距 2dp，外侧完全圆角，相邻内侧圆角 8dp。高度沿用按钮的 XS 32 / S 40 / M 56 / L 96 / XL 136dp 尺寸，内边距与图标随高度而定。打开菜单时箭头旋转、段变为圆形。",
+      "拆分按钮（tOS OSBigButton 组合）：左段为主操作，右侧箭头段打开菜单，沿用按钮胶囊形。两段间距 2dp，外侧完全圆角，相邻内侧圆角 8dp。填充用 brand（HiOS #0077FF / XOS #00C763），文字用 label-semibold（15px/550）反白。高 48dp（Middle）。打开菜单时箭头旋转。",
     fabMenu:
-      "FAB 菜单：M3 Expressive 的 FloatingActionButtonMenu。关闭时是普通 FAB，点击后各项依次向上展开，FAB 图标变为 close。每项高 56dp，完全圆角，带图标和标签并右对齐。",
+      "悬浮菜单（tOS OSLiquidFob 组合）：关闭时是普通圆形悬浮按钮，点击后各项依次向上展开，图标变为 close。每项完全圆角，带图标和标签并右对齐，主按钮填 brand（HiOS #0077FF / XOS #00C763）。",
     toolbar:
-      "悬浮工具栏：M3 Expressive 的 HorizontalFloatingToolbar。高 64dp，完全圆角，悬浮在距屏幕底部 16dp 处并覆盖在内容之上。标准样式用 surfaceContainer，鲜明样式用 primaryContainer。内部图标按钮 48dp。",
-    tabs: "标签页：M3 的主标签页。高 48dp，标签用 titleSmall，选中项文字为 primary 并带与标签同宽的 3dp 指示条（上方圆角），下方为 outlineVariant 分割线。点击标签切换内容。",
-    radio: "单选按钮：20dp 圆形。选中时为 primary 的圆环加中心圆点，未选中为 onSurfaceVariant 圆环。同一组内只能选一个。标签在右侧，用 bodyLarge。",
+      "底部操作栏（tOS ToolBar / OsLiqBottomToolBar）：360×104dp，内容 y32/底 28dp，组高 44dp，单图标 44dp，单文本宽 62dp，选项 56×36dp，图标 24dp。背景用 layer（#FFFFFF / #18181A），图标/文字用 text-icon-primary，主操作用 brand（HiOS #0077FF / XOS #00C763）。",
+    tabs: "顶部分段/标签（tOS SegmentedTabs / OSSegmentedTab、LabelTabs / OSTabLayout）：分段栏 328×54dp、轨道高 38dp圆角 24dp、item 高 34dp圆角 28dp；标签 tab 高 54dp；超流体分段高 44dp。选中项文字用 brand（HiOS #0077FF / XOS #00C763），未选用 text-icon-secondary（#48494D）；分段式选中块用 layer（#FFFFFF）淡底，轨道用 fill-weaker / bg-secondary（#F5F6F7）。点击标签切换内容。",
+    radio: "单选（tOS Radio / OSRadioButton）：形 18dp（上下留 3dp）。选中时为 brand（HiOS #0077FF / XOS #00C763）的圆环加中心圆点，未选中为 border-default（#DCDDE0）圆环。同一组内只能选一个。标签在右侧，用 body1（16px/400）/ text-icon-primary。",
   },
   ko: {
     button: "버튼: 높이 56dp의 중간 크기, 완전 둥근 알약 모양. 채움은 primary, 토널은 secondaryContainer, 윤곽선은 1dp outline 테두리를 사용한다. 연결 버튼 그룹은 간격 3dp, 맞닿는 안쪽 모서리 8dp, 바깥쪽 모서리는 둥글게 유지한다. 높이가 지정된 버튼은 M3 크기(XS 32dp / S 40dp / M 56dp / L 96dp / XL 136dp)를 따라 좌우 여백, 글자 크기, 아이콘 크기를 그 크기의 값으로 하고 모서리는 높이의 절반으로 한다.",
@@ -1429,8 +1429,8 @@ const STYLE_NOTES_WEB: Record<Lang, Partial<Record<Kind, string>>> = {
     bottomNav: "Navigation bar: 80dp tall on surfaceContainer. The active destination shows a secondaryContainer pill indicator (64×32dp), a filled icon and a labelMedium label.",
   },
   zh: {
-    topAppBar: "标题栏（tOS TitleBar / OSLiquidToolBar）：内容高 56dp，背景为 layer（浅色 #FFFFFF / 深色 #18181A）。标题用 title（16px/500），左右图标按钮 44×44dp、图标 24dp。滚动时可切换材质标题栏。",
-    bottomNav: "导航栏：高 80dp，背景为 surfaceContainer。选中项用 secondaryContainer 的胶囊指示器（宽 64dp、高 32dp）表示，图标为填充样式，标签用 labelMedium。",
+    topAppBar: "标题栏（tOS TitleBar / OSLiquidToolBar）：内容高 56dp，背景为 layer（浅色 #FFFFFF / 深色 #18181A）。标题用 title（16px/500），左右图标按钮 44×44dp、图标 24dp，用 text-icon-primary。滚动时可切换材质标题栏。",
+    bottomNav: "底部导航（tOS TabBar / OSLiquidFootOperationBar）：移动端 360×100dp，条高 60dp，item 宽 52dp，图标 24dp。背景用 layer（#FFFFFF / #18181A）。选中项图标/文字用 brand（HiOS #0077FF / XOS #00C763），未选用 text-icon-tertiary（#545559），标签用 caption1（12px）。",
   },
 };
 

@@ -838,7 +838,7 @@ function FabMenuContent({ item, p, shown = true }: { item: Item; p: Palette; sho
           fontSize: 16,
           fontWeight: w(500, 700),
           whiteSpace: "nowrap",
-          borderRadius: scaleR(extended ? extendedFabMetrics(extendedFabHeight(item)).radius : Math.round(FAB_MENU_CLOSE * 0.28)),
+          borderRadius: scaleR(extended ? extendedFabMetrics(extendedFabHeight(item)).radius : Math.round(FAB_MENU_CLOSE * 0.5)),
           display: "grid",
           placeItems: "center",
           boxShadow: "0 3px 8px rgba(0,0,0,0.18), 0 1px 3px rgba(0,0,0,0.12)",
