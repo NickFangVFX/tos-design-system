@@ -86,7 +86,7 @@ describe("constants", () => {
     expect(DESKTOP_R).toBe(28);
     expect(RAIL_W).toBe(80);
     expect(PHONE_MARGIN).toBe(16);
-    expect(R_FULL).toBe(28);
+    expect(R_FULL).toBe(24); // tOS pill/rounded outer corner
     expect(R_INNER).toBe(8);
   });
 
@@ -312,7 +312,7 @@ describe("normalizeTheme", () => {
       bothModes: false,
       contrast: "standard",
       shape: "rounded",
-      font: "roboto",
+      font: "transSans", // tOS default face
       emphasized: false,
       motion: "standard",
     });

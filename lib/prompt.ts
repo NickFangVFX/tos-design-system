@@ -1192,7 +1192,7 @@ const STYLE_NOTES: Record<Lang, Partial<Record<Kind, string>>> = {
   },
   zh: {
     button:
-      "按钮：中号，高 56dp，完全圆角（胶囊形）。填充用 primary，色调用 secondaryContainer，描边用 1dp 的 outline 边框。横向相连的按钮组以 3dp 间距排列，只把相邻的内侧圆角缩小到 8dp，外侧保持圆角（M3 Expressive 的 Connected button group）。指定了高度的按钮遵循 M3 尺寸（XS 32dp / S 40dp / M 56dp / L 96dp / XL 136dp）：左右内边距、文字和图标取该尺寸的值，圆角为高度的一半。",
+      "按钮（tOS OSBigButton）：默认 Middle 尺寸，宽 150dp、高 48dp，胶囊圆角；Big 为 296×48dp，Tiny 为 72-84×32dp。填充用 brand（HiOS #0077FF / XOS #00C763），灰色按钮用 fill-weaker，描边按钮用 1dp 的 border-default 边框，警示按钮用 warning-primary（#FF3430）。左右内边距 space-200（16dp），上下 space-150（12dp），文字用 label-semibold（15px/550，Tiny 用 caption1-semibold 12px/550）。禁用态用 brand-disabled。Android 对应 OSBigButton（View）/ OSButton、OSLiquidBigButtonCompose（Compose）；底部按钮区域用 OSLiquidBigButton 布局，勿把布局当单按钮。",
     iconButton: "图标按钮：默认 56dp 圆形（M3 的 M 尺寸）；指定了尺寸的按 M3 尺寸（XS 32dp / S 40dp / M 56dp / L 96dp / XL 136dp）实现，图标也取该尺寸。按指定使用填充／色调／描边／标准样式。相连的图标按钮组实现为 Connected button group。",
     carousel:
       "轮播：M3 的 Carousel（Compose 为 HorizontalMultiBrowseCarousel / HorizontalUncontainedCarousel，Web 为横向滚动的卡片行）。卡片为圆角 16dp 的容器；多浏览与主图布局中首张卡片最大、越靠后越小，等宽滚动中每张卡片同宽，全屏布局中一张卡片占满整行。贴近屏幕左右边缘，起始留白 16dp，卡片间距 8dp。卡片标题放在卡片底部。",
@@ -1205,7 +1205,7 @@ const STYLE_NOTES: Record<Lang, Partial<Record<Kind, string>>> = {
     chip:
       "标签片：默认高 32dp，圆角 8dp。指定了高度的标签片遵循 M3 尺寸（XS 32dp / S 40dp / M 56dp）：左右内边距、文字和图标取该尺寸的值。选中状态用 secondaryContainer 填充并在前面显示勾选图标。横向相连的标签片组以 3dp 间距排列，只把相邻的内侧圆角缩小到 4dp，外侧保持圆角，并共享同一高度；溢出时横向滚动。",
     topAppBar:
-      "顶部应用栏：高 64dp，背景为 surface。背景延伸到状态栏后面，并按系统内边距在顶部留出空间。标题用 titleLarge，左右图标按钮 48dp。滚动时变为 surfaceContainer 的标准行为即可。指定为中号／大号的应用栏是 M3 的 flexible top app bar：高 112dp／152dp，图标位于顶部 64dp 一行，标题单独占底部一行（headlineSmall／headlineMedium），滚动时收缩为小号应用栏。",
+      "标题栏（tOS TitleBar / OSLiquidToolBar）：内容高 56dp，背景延伸到状态栏后面并按系统内边距在顶部留白。默认背景为 layer（浅色 #FFFFFF / 深色 #18181A），标题用 title（16px/500）居中或左对齐，左右图标按钮 44×44dp、图标 24dp、用 text-icon-primary。滚动时可切换材质标题栏（浏览器材质：70% 白底 + 20% 白玻璃 + 4px 背景模糊 + 双向渐变环描边）。大标题栏（LargeTitleBar）标题独占底部一行、用 hero（32px/550）或 h1（26px/550），滚动收缩为小标题栏。Android 对应 OSLiquidToolBar / OSLiquidWidgetToolBar（View）、OSLiqToolBarCompose / OSComposeAppBarNestedScroll（Compose）。",
     bottomNav:
       "导航栏：高 80dp，背景为 surfaceContainer。背景延伸到屏幕底部的手势导航区域，并按系统内边距在底部留出空间。选中项用 secondaryContainer 的胶囊指示器（宽 64dp、高 32dp）表示，图标为填充样式，标签用 labelMedium。",
     navRail:
@@ -1220,7 +1220,7 @@ const STYLE_NOTES: Record<Lang, Partial<Record<Kind, string>>> = {
       "文本输入框：高 56dp。描边样式圆角 16dp、边框为 outline；填充样式背景为 surfaceContainerHighest 并带下划线。聚焦时标签上浮，边框变为 2dp 的 primary。辅助文本用 bodySmall 显示在下方。",
     select:
       "下拉菜单：外观与文本输入框相同（高 56dp，描边或填充），末尾带 arrow_drop_down 图标。按 exposed dropdown menu 实现：点击后在下方展开菜单（surfaceContainer，圆角 4dp，项高 48dp），所选值显示在输入框中。",
-    switch: "开关：M3 标准尺寸（轨道 52×32dp）。开为 primary，关为 surfaceContainerHighest 加 outline 边框。标签在左，开关靠右。",
+    switch: "开关（tOS OSLiquidSwitch）：轨道 44×24dp，滑块 18dp（上下留 3dp）。开启轨道用 brand（HiOS #0077FF / XOS #00C763）、滑块纯白；关闭轨道用 comp-color-switch-off（#C6C8CC），滑块纯白；禁用用 comp-color-switch-disabled。标签在左（用 body1-regular），开关靠右。Android 对应 OSLiquidSwitchCompose。",
     checkbox: "复选框：18dp 方形，圆角 2dp，勾选时为 primary。标签在右侧，用 bodyLarge。",
     slider: "滑块：M3 Expressive 的粗轨道（高 16dp）和竖长手柄（宽 4dp、高 44dp）。手柄左侧为 primary，右侧为 secondaryContainer。可拖动改变数值。",
     text: "文本：指定的 sp 字号。标题用 onSurface，说明文字用 onSurfaceVariant，行高为字号的 1.3〜1.5 倍。点击时不加涟漪等反馈。",
@@ -1391,7 +1391,7 @@ const GENERAL: Record<Lang, (string | ((pl: Platform) => string))[]> = {
     (pl: Platform) => `把数据当作真实数据处理：用户创建的数据要持久化到${pl === "web" ? "浏览器（IndexedDB 等），重新加载" : "设备（Room、DataStore 等），重启"}后仍保留。不要放入虚拟或示例数据，没有数据时显示空状态提示。校验输入，删除和失败要有适当的确认或提示。`,
     "草图没有写明的行为，根据屏幕目的和组件标签补全。未指定行为的按钮或项目要实现与其标签相符的操作（保存、发送、打开详情页等），不要什么都不做。",
     "布局只需保持意图（顺序、分组、相对位置），尺寸和间距可根据内容调整。若在真机上会出问题，宁可能用也不要死守草图。",
-    (pl: Platform) => `组件使用 ${pl === "web" ? "Material Web" : "Jetpack Compose material3（包含 Expressive API 的最新版）"} 的标准组件，库里已有的组件不要自行绘制。`,
+    (pl: Platform) => `组件使用 tOS 设计系统（TranSsion HiOS / XOS）的标准组件：${pl === "web" ? "Web 预览用 tOS React 组件库（tos-design-system）" : "Android 用 tOS 控件库 OS*（View）/ OS*Compose（Jetpack Compose）"}，库里已有的组件不要自行绘制，优先用 tOS 设计 token（brand / text-icon-* / layer-* / fill-* / radius-* / space-*）而非相近的替代值。`,
     "颜色必须通过上面配色方案的角色名（primary、surfaceContainer 等）引用，不要写死颜色值。",
     "屏幕边缘留 16dp，组件之间 8〜16dp，排版使用 M3 的字体样式（titleLarge、bodyMedium 等）。",
     "写明“横向排成一行”的组件必须放进同一个 Row（横向容器）并在同一行显示，不要竖着堆叠或换行。行高以最高的组件为准，其余组件垂直居中。",
@@ -1429,7 +1429,7 @@ const STYLE_NOTES_WEB: Record<Lang, Partial<Record<Kind, string>>> = {
     bottomNav: "Navigation bar: 80dp tall on surfaceContainer. The active destination shows a secondaryContainer pill indicator (64×32dp), a filled icon and a labelMedium label.",
   },
   zh: {
-    topAppBar: "顶部应用栏：高 64dp，背景为 surface。标题用 titleLarge，左右图标按钮 48dp。滚动时变为 surfaceContainer 的标准行为即可。",
+    topAppBar: "标题栏（tOS TitleBar / OSLiquidToolBar）：内容高 56dp，背景为 layer（浅色 #FFFFFF / 深色 #18181A）。标题用 title（16px/500），左右图标按钮 44×44dp、图标 24dp。滚动时可切换材质标题栏。",
     bottomNav: "导航栏：高 80dp，背景为 surfaceContainer。选中项用 secondaryContainer 的胶囊指示器（宽 64dp、高 32dp）表示，图标为填充样式，标签用 labelMedium。",
   },
 };

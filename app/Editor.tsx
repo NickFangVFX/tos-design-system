@@ -437,7 +437,7 @@ export default function Editor({ initialLang, onReady }: { initialLang: Lang; on
     setGroupState((prev) => constrainModalRails(typeof next === "function" ? next(prev) : next));
   }, []);
   const [frames, setFrames] = useState<Frame[]>(() => [{ ...SEED_FRAMES[0], name: t("home", initialLang) }]);
-  const [paletteKey, setPaletteKey] = useState("purple");
+  const [paletteKey, setPaletteKey] = useState("hios");
   const [customPalette, setCustomPalette] = useState<Palette | null>(null);
   const [dynamicColor, setDynamicColor] = useState(false);
   const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
@@ -710,7 +710,7 @@ export default function Editor({ initialLang, onReady }: { initialLang: Lang; on
     if (Array.isArray(doc.groups)) setGroups(migrateGroups(doc.groups, frames));
     if (Array.isArray(doc.frames)) setFrames(doc.frames);
     if (typeof doc.paletteKey === "string" && doc.paletteKey) setPaletteKey(doc.paletteKey);
-    else if (reset) setPaletteKey("purple");
+    else if (reset) setPaletteKey("hios");
     /* normalize once so a scheme saved before the secondary role gets it and keeps it on re-save */
     if (doc.customPalette && typeof doc.customPalette.primary === "string") setCustomPalette(paletteOf("custom", doc.customPalette));
     else if (reset) setCustomPalette(null);

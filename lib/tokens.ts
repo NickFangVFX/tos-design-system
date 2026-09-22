@@ -115,8 +115,8 @@ export const barWidths = (frameW: number) => [
 /** the named size a height lands exactly on, if it lands on one */
 export const buttonSizeKeyOf = (height: number): ButtonSizeKey | null => BUTTON_SIZES.find((s) => s.h === height)?.key ?? null;
 export const GAP = 3; // connected group spacing
-export const R_FULL = 28; // outer corner of a connected run
-export const R_INNER = 8; // inner corner when connected (M3 small)
+export const R_FULL = 24; // tOS pill/rounded outer corner of a connected run
+export const R_INNER = 8; // inner corner when connected (tOS radius-xs)
 
 /** magnetic field size, along the run and across it */
 export const SNAP_MAIN = 44;
@@ -251,6 +251,127 @@ const ERROR = {
   errorContainer: "#F9DEDC",
   onErrorContainer: "#410E0B",
 };
+
+/* ---------------------------------------------------------------------------
+ * tOS Design System palettes (TranSsion HiOS / XOS).
+ * Ported from the tOS "公共控件" Figma token registry:
+ *   HiOS brand #0077FF, XOS brand #00C763, dark bg #000000.
+ * Text/icon roles map to tOS text-icon-*; surfaces map to tOS layer-*.
+ * ------------------------------------------------------------------------- */
+const TOS_PRESETS: Omit<Palette, "secondary">[] = [
+  {
+    key: "hios",
+    label: "HiOS",
+    primary: "#0077FF",
+    onPrimary: "#FFFFFF",
+    primaryContainer: "#EBF5FF",
+    onPrimaryContainer: "#0077FF",
+    inversePrimary: "#1A88FF",
+    secondaryContainer: "#E9EAEB",
+    onSecondaryContainer: "#48494D",
+    tertiaryContainer: "#EBF5FF",
+    onTertiaryContainer: "#0069E0",
+    surface: "#F0F1F2",
+    surfaceContainerLow: "#F5F6F7",
+    surfaceContainer: "#FFFFFF",
+    surfaceContainerHigh: "#FFFFFF",
+    surfaceContainerHighest: "#FFFFFF",
+    onSurface: "#000000",
+    onSurfaceVariant: "#48494D",
+    outline: "#DCDDE0",
+    outlineVariant: "#E9EAEB",
+    inverseSurface: "#18181A",
+    inverseOnSurface: "#FFFFFF",
+    error: "#FF3430",
+    onError: "#FFFFFF",
+    errorContainer: "#FFEBEB",
+    onErrorContainer: "#9E2220",
+  },
+  {
+    key: "xos",
+    label: "XOS",
+    primary: "#00C763",
+    onPrimary: "#FFFFFF",
+    primaryContainer: "#EBFAF3",
+    onPrimaryContainer: "#0D8046",
+    inversePrimary: "#08CC71",
+    secondaryContainer: "#E9EAEB",
+    onSecondaryContainer: "#48494D",
+    tertiaryContainer: "#EBFAF3",
+    onTertiaryContainer: "#00AD57",
+    surface: "#F0F1F2",
+    surfaceContainerLow: "#F5F6F7",
+    surfaceContainer: "#FFFFFF",
+    surfaceContainerHigh: "#FFFFFF",
+    surfaceContainerHighest: "#FFFFFF",
+    onSurface: "#000000",
+    onSurfaceVariant: "#48494D",
+    outline: "#DCDDE0",
+    outlineVariant: "#E9EAEB",
+    inverseSurface: "#18181A",
+    inverseOnSurface: "#FFFFFF",
+    error: "#FF3430",
+    onError: "#FFFFFF",
+    errorContainer: "#FFEBEB",
+    onErrorContainer: "#9E2220",
+  },
+  {
+    key: "hiosDark",
+    label: "HiOS Dark",
+    primary: "#1A88FF",
+    onPrimary: "#FFFFFF",
+    primaryContainer: "#0D1F33",
+    onPrimaryContainer: "#1A88FF",
+    inversePrimary: "#0077FF",
+    secondaryContainer: "#222325",
+    onSecondaryContainer: "#FFFFFFBF",
+    tertiaryContainer: "#0D1F33",
+    onTertiaryContainer: "#1A88FF",
+    surface: "#000000",
+    surfaceContainerLow: "#000000",
+    surfaceContainer: "#18181A",
+    surfaceContainerHigh: "#222325",
+    surfaceContainerHighest: "#2F3033",
+    onSurface: "#FFFFFFE0",
+    onSurfaceVariant: "#FFFFFFBF",
+    outline: "#FFFFFF33",
+    outlineVariant: "#FFFFFF1F",
+    inverseSurface: "#FFFFFF",
+    inverseOnSurface: "#000000",
+    error: "#FF4942",
+    onError: "#FFFFFF",
+    errorContainer: "#330D0D",
+    onErrorContainer: "#FF9794",
+  },
+  {
+    key: "xosDark",
+    label: "XOS Dark",
+    primary: "#08CC71",
+    onPrimary: "#FFFFFF",
+    primaryContainer: "#0C291B",
+    onPrimaryContainer: "#08CC71",
+    inversePrimary: "#00C763",
+    secondaryContainer: "#222325",
+    onSecondaryContainer: "#FFFFFFBF",
+    tertiaryContainer: "#0C291B",
+    onTertiaryContainer: "#08CC71",
+    surface: "#000000",
+    surfaceContainerLow: "#000000",
+    surfaceContainer: "#18181A",
+    surfaceContainerHigh: "#222325",
+    surfaceContainerHighest: "#2F3033",
+    onSurface: "#FFFFFFE0",
+    onSurfaceVariant: "#FFFFFFBF",
+    outline: "#FFFFFF33",
+    outlineVariant: "#FFFFFF1F",
+    inverseSurface: "#FFFFFF",
+    inverseOnSurface: "#000000",
+    error: "#FF4942",
+    onError: "#FFFFFF",
+    errorContainer: "#330D0D",
+    onErrorContainer: "#FF9794",
+  },
+];
 
 /* presets are authored without secondary; it is derived from the seed below */
 const PRESETS: Omit<Palette, "secondary">[] = [
@@ -430,11 +551,25 @@ const PRESETS: Omit<Palette, "secondary">[] = [
     ...ERROR,
   },
 ];
-export const PALETTES: Palette[] = PRESETS.map((p) => ({ ...p, secondary: schemeFromSeed(p.primary, p.label, { keepChroma: true }).secondary }));
+/* Explicit tOS secondary (text-icon-secondary), dark enough for contrast on white layer surfaces
+ * in light mode and light enough on dark surfaces in dark mode; keyed by preset key. */
+const TOS_SECONDARY: Record<string, string> = {
+  hios: "#48494D",
+  xos: "#48494D",
+  hiosDark: "#B8B9BD",
+  xosDark: "#B8B9BD",
+};
+
+/* tOS palettes lead the list so HiOS is the default; M3 presets remain available.
+ * tOS presets carry an explicit secondary; M3 presets derive theirs from the seed. */
+export const PALETTES: Palette[] = [...TOS_PRESETS, ...PRESETS].map((p) => ({
+  ...p,
+  secondary: TOS_SECONDARY[p.key] ?? schemeFromSeed(p.primary, p.label, { keepChroma: true }).secondary,
+}));
 
 /* ---------- theme: the four expressive axes ---------- */
 export type ShapeScale = "square" | "rounded" | "full";
-export type FontKey = "roboto" | "robotoFlex" | "robotoSerif" | "system";
+export type FontKey = "transSans" | "roboto" | "robotoFlex" | "robotoSerif" | "system";
 export type MotionScheme = "standard" | "expressive";
 export type { Contrast };
 
@@ -450,7 +585,8 @@ export type Theme = {
   motion: MotionScheme;
 };
 
-export const DEFAULT_THEME: Theme = { dark: false, bothModes: false, contrast: "standard", shape: "rounded", font: "roboto", emphasized: false, motion: "standard" };
+/* tOS default: HiOS light, TransSans SC, rounded shape. */
+export const DEFAULT_THEME: Theme = { dark: false, bothModes: false, contrast: "standard", shape: "rounded", font: "transSans", emphasized: false, motion: "standard" };
 
 /** a stored theme with any missing or unknown field replaced by its default */
 export function normalizeTheme(t: Partial<Theme> | undefined): Theme {
@@ -474,6 +610,8 @@ export const SHAPES: { key: ShapeScale; label: string; icon: string }[] = [
 ];
 
 export const FONTS: { key: FontKey; label: string; family: string; /** Google Fonts family to fetch, if any */ google?: string }[] = [
+  /* tOS default face. TransSans SC binaries are shipped by the host; keep PingFang/system fallback per tOS spec. */
+  { key: "transSans", label: "TransSans SC", family: "'TransSans SC', 'PingFang SC', system-ui, -apple-system, sans-serif" },
   { key: "roboto", label: "Roboto", family: "Roboto, system-ui, sans-serif" },
   { key: "robotoFlex", label: "Roboto Flex", family: "'Roboto Flex', Roboto, system-ui, sans-serif", google: "Roboto+Flex:wght@400;500;600;700" },
   { key: "robotoSerif", label: "Roboto Serif", family: "'Roboto Serif', Georgia, serif", google: "Roboto+Serif:wght@400;500;600;700" },
@@ -967,17 +1105,18 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "ボタン",
     category: "actions",
     paletteIcon: "buttons_alt",
-    w: 128,
-    h: H,
-    radius: R_FULL,
+    /* tOS OSBigButton: Big 296x48 / Middle 150x48 / Tiny 72-84x32, pill radius. */
+    w: 150,
+    h: 48,
+    radius: 24,
     hasVariant: true,
     hasLabel: true,
     hasSupporting: false,
     hasIcon: true,
-    connect: { axis: "x", outer: R_FULL, inner: R_INNER, family: "button" },
-    /* 56 is the height: an icon-only button is a circle at its narrowest */
-    size: { min: 56, max: PHONE_W, step: 4, icon: "width", presets: [HALF_W, CONTENT_W] },
-    defLabel: "ボタン",
+    connect: { axis: "x", outer: 24, inner: R_INNER, family: "button" },
+    /* 48 is the tOS button height: an icon-only button is a pill at its narrowest */
+    size: { min: 72, max: PHONE_W, step: 4, icon: "width", presets: [150, 296] },
+    defLabel: "按钮",
     defIcon: "add",
   },
   iconButton: {
@@ -1056,21 +1195,22 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     defVariant: "outlined",
   },
   topAppBar: {
-    label: "Top App Bar",
-    noun: "トップアプリバー",
+    label: "Title Bar",
+    noun: "タイトルバー",
     category: "navigation",
     paletteIcon: "toolbar",
+    /* tOS TitleBar (OSLiquidToolBar): 56dp content height above the status bar. */
     w: PHONE_W,
-    h: 64 + STATUS_BAR_H,
+    h: 56 + STATUS_BAR_H,
     radius: 0,
     hasVariant: false,
     hasLabel: true,
     hasSupporting: false,
     hasIcon: true,
     size: { min: 200, max: PHONE_W, step: 4, icon: "width", presets: WIDTH_PRESETS },
-    /* M3's small, medium and large bars: the title moves under the icons as the bar grows */
+    /* tOS small/large title bars: the title moves under the icons as the bar grows */
     size2: { min: TOP_BAR_SIZES[0].h, max: TOP_BAR_SIZES[TOP_BAR_SIZES.length - 1].h, step: 4, icon: "height", presets: TOP_BAR_SIZES.map((b) => b.h) },
-    defLabel: "タイトル",
+    defLabel: "标题",
     defIcon: "menu",
     defIcon2: "more_vert",
     defSize: PHONE_W,
@@ -1247,9 +1387,10 @@ export const KIND_SPEC: Record<Kind, KindSpec> = {
     noun: "スイッチ",
     category: "inputs",
     paletteIcon: "toggle_on",
+    /* tOS OSLiquidSwitch: track 44x24, thumb 18px. Row height keeps 48 for the label line. */
     w: 160,
     h: 48,
-    radius: 16,
+    radius: 12,
     hasVariant: false,
     hasLabel: true,
     hasSupporting: false,

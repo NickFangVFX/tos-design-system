@@ -31,7 +31,8 @@ import {
 } from "./tokens";
 
 const widths: Record<string, number> = {};
-const paletteKey = "baseline";
+// "custom" so paletteOf uses the fixture customPalette below (PALETTES[0] is now tOS HiOS)
+const paletteKey = "custom";
 const palette: Palette = {
   key: "baseline",
   label: "Baseline",
